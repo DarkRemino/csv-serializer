@@ -26,21 +26,6 @@ int find_in_array(char* array[], int array_size, char* target) {
     return step;
 }
 
-
-struct Order {
-    char* order_id;
-    time_t order_date;
-    char* customer_id;
-    int city;
-    int state;
-    char* postal_code;
-    int region;
-    char* product_id;
-    int category;
-    int subcategory;
-    float price;
-};
-
 int main() {
 
 
@@ -75,12 +60,11 @@ int main() {
     fgets (row, 500, readfile); // Skip the first row since that's the file definitions
     while (fgets(row, 500, readfile)) 
     {
-        struct Order current_order;
         struct tm order_epoch;
 
         char* row_id = strtok(row, ","); // comppletely unnecessary, not gonna use it for anything
         
-        current_order.order_id = strtok(NULL, ",");
+        char* order_id = strtok(NULL, ",");
 
         char* order_date = strtok(NULL, ",");
         int month, day, year;
@@ -94,37 +78,37 @@ int main() {
             order_epoch.tm_sec = 0;
             order_epoch.tm_isdst = -1;    
 
-            current_order.order_date = mktime(&order_epoch);
+            order_date = mktime(&order_epoch);
 
-        current_order.customer_id = strtok(NULL, ",");
+        char*customer_id = strtok(NULL, ",");
 
-        current_order.city = find_in_array(cities, cities_size, strtok(NULL, ","));
+        int city = find_in_array(cities, cities_size, strtok(NULL, ","));
 
-        current_order.state = find_in_array(states, states_size, strtok(NULL, ","));
+        int state = find_in_array(states, states_size, strtok(NULL, ","));
 
-        current_order.postal_code = strtok(NULL, ",");
+        char* postal_code = strtok(NULL, ",");
 
-        current_order.region = find_in_array(regions, regions_size, strtok(NULL, ","));
+        int region = find_in_array(regions, regions_size, strtok(NULL, ","));
 
-        current_order.product_id = strtok(NULL, ",");
+        char* product_id = strtok(NULL, ",");
 
-        current_order.category = find_in_array(categories, categories_size, strtok(NULL, ","));
+        int category = find_in_array(categories, categories_size, strtok(NULL, ","));
 
-        current_order.subcategory = find_in_array(subcategories, subcategories_size, strtok(NULL, ","));
+        int subcategory = find_in_array(subcategories, subcategories_size, strtok(NULL, ","));
 
-        current_order.price = strtof(strtok(NULL, ","), NULL);
+        float price = atof(strtok(NULL, ","));
 
             fprintf(writefile, "%s,%ld,%s,%d,%d,%d,%s,%d,%d,%.2f\n",
-            current_order.order_id,
-            current_order.order_date,
-            current_order.customer_id,
-            current_order.city,
-            current_order.state,
-            current_order.region,
-            current_order.product_id,
-            current_order.category,
-            current_order.subcategory,
-            current_order.price);
+            order_id,
+            order_date,
+            customer_id,
+            city,
+            state,
+            region,
+            product_id,
+            category,
+            subcategory,
+            price);
     }
 
     fclose(writefile);
