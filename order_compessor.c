@@ -3,12 +3,13 @@
 #include <string.h>
 #include <time.h>
 
-// All of these were made with Python in order to compress the data
-#include "cities.h"
-#include "states.h"
-#include "regions.h"
-#include "categories.h"
-#include "subcategories.h"
+#include "data_arrays.h"
+
+char* categories[];
+char* subcategories[];
+char* cities[];
+char* regions[];
+char* states[];
 
 int array_size(char* array[]) {
     int size = 0;

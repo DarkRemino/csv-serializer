@@ -2,11 +2,13 @@
 #include <string.h>
 #include <time.h>
 
-#include "states.h"
-#include "cities.h"
-#include "regions.h"
-#include "categories.h"
-#include "subcategories.h"
+#include "data_arrays.h"
+
+char* cities[];
+char* states[];
+char* regions[];
+char* categories[];
+char* subcategories[];
 
 int decompress_file() {
 
